@@ -26,6 +26,10 @@ save("output.db", items)
 
 ### ライブラリを使用した Python によるスクレイピング
 
+```bash
+docker run -p 27017:27017 --name dev-mongo mongo
+```
+
 ## 4 章
 
 ### エラー処理、繰り返し処理、robot が従うべき挙動など

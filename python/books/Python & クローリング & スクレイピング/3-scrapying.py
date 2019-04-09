@@ -3,6 +3,7 @@ import bs4
 from urllib.parse import urljoin
 from functools import reduce
 import time
+from pymongo import MongoClient
 
 
 def list_books(html, base_url):
@@ -28,25 +29,31 @@ def get_book_detail(html, base_url):
     return book
 
 
+def store_book(collection, book):
+    collection.insert_one(book)
+
+
+def find_book(collection, url):
+    return collection.find_one({"url": url})
+
+
 def main():
-    session = requests.Session()
+    client = MongoClient()  # localhost:27017
+    collection = client.scrapying.books
+    collection.create_index("url", unique=True)
     base_url = "https://gihyo.jp/dp"
+    session = requests.Session()
     response = session.get(base_url)
     urls = list_books(response.content, base_url)
     for url in urls:
-        time.sleep(1)
-        resp = session.get(url)
-        book = get_book_detail(resp.content, url)
-        print(book)
-        print("\n")
+        if not find_book(collection, url):
+            time.sleep(1)
+            resp = session.get(url)
+            book = get_book_detail(resp.content, url)
+            store_book(collection, book)
+            print(book)
+            print("\n")
 
 
 if __name__ == '__main__':
     main()
-
-
-# TODO: db へ保存する
-# response = requests.get(url)
-# print(list_books(response.content))
-# response = requests.get("https://gihyo.jp/dp/ebook/2019/978-4-297-10507-5")
-# print(get_book_detail(response.content))

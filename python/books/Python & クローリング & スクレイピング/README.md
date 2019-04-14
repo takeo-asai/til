@@ -52,6 +52,13 @@ $ brew cask install phantomjs
 - インターバル、並列処理、重複防止、リトライ
 - デーモン化、ジョブ管理
 
+```bash
+$ scrapy startproject six_scrapy
+$ scrapy genspider news news.yahoo.co.jp
+$ scrapy shell https://news.yahoo.co.jp/pickup/6320347
+$ scrapy crawl news -o news.jl
+```
+
 ## 7 章
 
 ### AWS へクローラーを deploy する

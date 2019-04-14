@@ -59,6 +59,12 @@ $ scrapy shell https://news.yahoo.co.jp/pickup/6320347
 $ scrapy crawl news -o news.jl
 ```
 
+readability, extracontent を使用することで、不特定多数の web サイトから本文が取り出せる（可能性が高い）
+
+- css セレクタなしでもそれなりには取れるのでは？
+
 ## 7 章
 
 ### AWS へクローラーを deploy する
+
+クローリングとスクレイピングの分離

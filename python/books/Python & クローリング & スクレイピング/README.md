@@ -47,6 +47,11 @@ $ brew cask install phantomjs
 
 ### Scrapy と画像処理
 
+- web ページからのリンク抽出
+- robots.txt, xml sitemap 認識
+- インターバル、並列処理、重複防止、リトライ
+- デーモン化、ジョブ管理
+
 ## 7 章
 
 ### AWS へクローラーを deploy する

@@ -38,6 +38,11 @@ docker run -p 27017:27017 --name dev-mongo mongo
 
 ### API, 自然言語処理, 可視化
 
+```bash
+$ pip install selenium
+$ brew cask install phantomjs
+```
+
 ## 6 章
 
 ### Scrapy と画像処理

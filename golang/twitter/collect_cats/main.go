@@ -17,7 +17,7 @@ func loadEnv() {
 	}
 }
 
-func getTwitterApi() *anaconda.TwitterApi {
+func getTwitterAPI() *anaconda.TwitterApi {
 	anaconda.SetConsumerKey(os.Getenv("TWITTER_API_TOKEN"))
 	anaconda.SetConsumerSecret(os.Getenv("TWITTER_SECRET_API_TOKEN"))
 	return anaconda.NewTwitterApi(os.Getenv("TWITTER_ACCESS_TOKEN"), os.Getenv("TWITTER_SECRET_ACCESS_TOKEN"))
@@ -26,17 +26,26 @@ func getTwitterApi() *anaconda.TwitterApi {
 func main() {
 	loadEnv()
 
-	api := getTwitterApi()
-
+	api := getTwitterAPI()
 	v := url.Values{}
-	v.Set("count", "30")
+	v.Set("track", "猫,cat") // , で or 検索
+	s := api.PublicStreamFilter(v)
 
-	searchResult, err := api.GetSearch("golang", v)
-	if err != nil {
-		fmt.Printf("error %v", err)
-	}
-
-	for _, tweet := range searchResult.Statuses {
-		fmt.Println(tweet.Text)
+	for t := range s.C {
+		switch v := t.(type) {
+		case anaconda.Tweet:
+			for _, media := range v.ExtendedEntities.Media {
+				url := media.Media_url_https
+				videos := media.VideoInfo.Variants
+				vURL := ""
+				for _, video := range videos {
+					if video.ContentType == "video/mp4" {
+						vURL = video.Url
+						break
+					}
+				}
+				fmt.Printf("%-15s: [%v] %v, video: %v\n", v.User.ScreenName, v.User.Lang, url, vURL)
+			}
+		}
 	}
 }

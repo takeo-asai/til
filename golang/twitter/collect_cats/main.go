@@ -5,6 +5,9 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"net/http"
+	"io"
+	"path/filepath"
 
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/joho/godotenv"
@@ -21,6 +24,23 @@ func getTwitterAPI() *anaconda.TwitterApi {
 	anaconda.SetConsumerKey(os.Getenv("TWITTER_API_TOKEN"))
 	anaconda.SetConsumerSecret(os.Getenv("TWITTER_SECRET_API_TOKEN"))
 	return anaconda.NewTwitterApi(os.Getenv("TWITTER_ACCESS_TOKEN"), os.Getenv("TWITTER_SECRET_ACCESS_TOKEN"))
+}
+
+func saveImage(url string) {
+	response, err := http.Get(url)
+    if err != nil {
+        panic(err)
+    }
+    defer response.Body.Close()
+
+	name := filepath.Base(url)
+    file, err := os.Create(filepath.Join("images/", name))
+    if err != nil {
+        panic(err)
+    }
+    defer file.Close()
+
+    io.Copy(file, response.Body)
 }
 
 func main() {
@@ -43,6 +63,9 @@ func main() {
 						vURL = video.Url
 						break
 					}
+				}
+				if url != "" {// まずは画像だけ
+					saveImage(url)
 				}
 				fmt.Printf("%-15s: [%v] %v, video: %v\n", v.User.ScreenName, v.User.Lang, url, vURL)
 			}

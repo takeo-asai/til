@@ -1,0 +1,10 @@
+github.com/disintegration/imaging v1.6.0 h1:nVPXRUUQ36Z7MNf0O77UzgnOb1mkMMor7lmJMJXc/mA=
+github.com/disintegration/imaging v1.6.0/go.mod h1:xuIt+sRxDFrHS0drzXUlCJthkJ8k7lkkUojDSR247MQ=
+github.com/pfnet-research/go-menoh v0.2.0 h1:TzKROU56HE9FpTYcY+fznkorIVueoI5rTSTgzgXJB5k=
+github.com/pfnet-research/go-menoh v0.2.0/go.mod h1:unPHVtotiuqom6gASLTTaF/mZlKrTXM4ecdBq0RZCsY=
+github.com/tensorflow/tensorflow v1.13.1 h1:ygn0+ztXusm6RGVP4Od5IF+8h5sAgD5qbeTvqYyMnjo=
+github.com/tensorflow/tensorflow v1.13.1/go.mod h1:itOSERT4trABok4UOoG+X4BoKds9F3rIsySdn+Lvu90=
+golang.org/x/image v0.0.0-20180708004352-c73c2afc3b81/go.mod h1:ux5Hcp/YLpHSI86hEcLt0YII63i6oz57MZXIpbrjZUs=
+golang.org/x/image v0.0.0-20190507092727-e4e5bf290fec h1:arXJwtMuk5vqI1NHX0UTnNw977rYk5Sl4jQqHj+hun4=
+golang.org/x/image v0.0.0-20190507092727-e4e5bf290fec/go.mod h1:kZ7UVZpmo3dzQBMxlp+ypCbDeSB+sBbTgSJuh5dn5js=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=

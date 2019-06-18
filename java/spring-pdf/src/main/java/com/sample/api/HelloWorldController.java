@@ -15,29 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class HelloWorldController {
 
-  static final String HELLO_WORLD = "Hello, world.";
-  private static final int BUFFER_SIZE = 1024;
-
-  @RequestMapping(value = "/string", method = RequestMethod.GET)
-  String byString() {
-    return HELLO_WORLD;
-  }
-
-  @RequestMapping(value = "/byte", method = RequestMethod.GET)
-  byte[] byBytes() {
-    return HELLO_WORLD.getBytes();
-  }
-
-  @RequestMapping(value = "/stream", method = RequestMethod.GET)
-  ResponseEntity<InputStreamResource> byStream() {
-    final InputStreamResource inputStreamResource = new InputStreamResource(GeneratePdfReport.citiesReport());
-
-    GeneratePdfReport.citiesReport();
-
+  @RequestMapping(value = "/openpdf", method = RequestMethod.GET)
+  ResponseEntity<InputStreamResource> openpdf() {
     final HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_PDF);
-
+    final InputStreamResource inputStreamResource = new InputStreamResource(OpenPdf.generate());
     return new ResponseEntity<>(inputStreamResource, headers, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/pdfbox", method = RequestMethod.GET)
+  ResponseEntity<InputStreamResource> pdfbox() {
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_PDF);
+    final InputStreamResource inputStreamResource = new InputStreamResource(PdfBox.generate());
+    return new ResponseEntity<>(inputStreamResource, headers, HttpStatus.OK);
+  }
 }

@@ -1,0 +1,7 @@
+.project
+org.eclipse.*
+.classpath
+.gradle
+gradlew.bat
+bin/
+build/

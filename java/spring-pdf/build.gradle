@@ -1,0 +1,100 @@
+// リリースバージョンをgradle.propertiesから取得し設定
+def applicationVersion = project.properties['release.version']
+version = applicationVersion
+
+// Java バージョン
+apply plugin: 'java'
+def javaVersion = JavaVersion.VERSION_1_8
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
+
+// warファイルを出力する
+apply plugin: 'war'
+
+// 依存ライブラリバージョン
+def junitVersion = '5.2.0'
+def jacocoVersion = '0.8.1'
+def checkstyleVersion = '8.10.1'
+
+// 依存ライブラリ取得先
+repositories {
+    // Mavenセントラルを使う
+    mavenCentral()
+}
+
+// 依存ライブラリ
+dependencies {
+    // JUnit
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: junitVersion
+}
+
+test {
+    // gradle buildの時にJUnit5を使うようにする
+    useJUnitPlatform()
+    // テストの並列実行スレッド数
+    maxParallelForks = 4
+}
+
+// 各種IDEの設定ファイルを出力するGradleプラグインの設定
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+// テストカバレッジにJacocoを使用する
+apply plugin: 'jacoco'
+jacoco {
+    toolVersion = jacocoVersion
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+build.dependsOn jacocoTestReport
+
+// Checkstyleで静的コード解析をする
+apply plugin: 'checkstyle'
+checkstyle {
+    toolVersion = checkstyleVersion
+    // デフォルトでは/src/main/resources配下だが、リポジトリ直下のXMLファイルを参照するようにする
+    configFile = file('checkstyle.xml')
+    // Checkstyle実行時にエラーがあればビルドを中断するようにする
+    ignoreFailures = false
+}
+
+// Spring Boot
+buildscript {
+    def springBootVersion = '2.1.5.RELEASE'
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:' + springBootVersion
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+def springBootApplicationName = 'hello-world-spring-boot'
+bootJar {
+    baseName = springBootApplicationName
+    version = applicationVersion
+}
+
+bootWar {
+    baseName = springBootApplicationName
+    version = applicationVersion
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    compile group: 'com.github.librepdf', name: 'openpdf', version: '1.2.20' // pdf
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}

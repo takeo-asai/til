@@ -1,7 +1,7 @@
-package find
+package datastore
 
-// Repository :
-type Repository interface {
+// PrefectureRepository :
+type PrefectureRepository interface {
 	FindAll() ([]Prefecture, error)
 }
 

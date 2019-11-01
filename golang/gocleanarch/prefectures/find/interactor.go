@@ -1,12 +1,16 @@
 package find
 
+import (
+	"sampleapp/datastore"
+)
+
 // Interactor implements FindUseCase
 type Interactor struct {
-	repository Repository
+	repository datastore.PrefectureRepository
 }
 
 // NewInteractor : constructor
-func NewInteractor(repo Repository) *Interactor {
+func NewInteractor(repo datastore.PrefectureRepository) *Interactor {
 	return &Interactor{repo}
 }
 

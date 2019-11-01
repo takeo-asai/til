@@ -14,7 +14,6 @@ type Controller struct {
 
 // NewController :
 func NewController(it *find.Interactor) *Controller {
-
 	return &Controller{it}
 }
 

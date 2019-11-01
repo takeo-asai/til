@@ -5,6 +5,7 @@ import (
 
 	"sampleapp/prefectures"
 	"sampleapp/prefectures/find"
+	"sampleapp/datastore"
 )
 
 func main() {
@@ -12,7 +13,7 @@ func main() {
 
 	ctrl := prefectures.NewController(
 		find.NewInteractor(
-			find.NewRepositoryImpl()))
+			datastore.NewPrefectureRepositoryImpl()))
 	e.GET("/prefectures", ctrl.Index)
 	e.Logger.Fatal(e.Start(":1323"))
 }

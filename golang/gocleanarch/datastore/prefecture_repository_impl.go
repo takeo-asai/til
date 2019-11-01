@@ -1,15 +1,15 @@
-package find
+package datastore
 
-// RepositoryImpl :
-type RepositoryImpl struct{}
+// PrefectureRepositoryImpl :
+type PrefectureRepositoryImpl struct{}
 
-// NewRepositoryImpl :
-func NewRepositoryImpl() *RepositoryImpl {
-	return &RepositoryImpl{}
+// NewPrefectureRepositoryImpl :
+func NewPrefectureRepositoryImpl() *PrefectureRepositoryImpl {
+	return &PrefectureRepositoryImpl{}
 }
 
 // FindAll :
-func (repo *RepositoryImpl) FindAll() ([]Prefecture, error) {
+func (repo *PrefectureRepositoryImpl) FindAll() ([]Prefecture, error) {
 	prefs := []Prefecture{}
 	prefs = append(prefs, Prefecture{Name: "北海道", ID: 1})
 	prefs = append(prefs, Prefecture{Name: "青森県", ID: 2})

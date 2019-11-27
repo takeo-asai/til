@@ -1,0 +1,13 @@
+{
+    "emeraldwalk.runonsave": {
+        "autoClearConsole": true,
+        "commands": [
+            {
+                "match": ".hs",
+                "isAsync": true,
+                "cmd": "runghc '${file}'"
+            }
+        ]
+    },
+    "files.autoSave": "afterDelay"
+}
